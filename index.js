@@ -16,38 +16,43 @@ app.engine(".hbs", hbs({
 }));
 
 app.use("/assets", express.static("public"));
-app.use(parser.urlencoded({extended: true}))
+app.use(parser.json({extended: true}))
 
 app.get("/", (req,res) => {
-  res.send("hello, this will be a mean lab soon")
+  res.render("recipes-index")
 })
 
-app.get("/recipes", function(req,res){
+app.get("/api/recipes/:name", (req, res) => {
+  Recipe.findOne({name: req.params.name}).then((recipe) => {
+    res.json(recipe)
+  })
+})
+
+app.get("/api/recipes", function(req, res){
   console.log("hello");
   Recipe.find({}).then(function(recipes){
-    res.render("recipes-index", {
-      recipes: recipes
-    })
+    res.json(recipes)
   })
 })
 
-app.get("/recipes/:name", (req, res) => {
-  Recipe.findOne({name: req.params.name}).then((recipe) => {
-    res.render("recipes-show", {
-      recipe: recipe
-    })
-  })
-})
 
-app.post("/recipes", (req, res) => {
+
+app.post("/api/recipes", (req, res) => {
   Recipe.create(req.body.recipe).then(function(recipe){
-    res.redirect("/recipes/" + recipe.name)
+    res.json(recipe)
   })
 })
 
-app.post("/recipes/:name/delete", (req, res) => {
+app.delete("/api/recipes/:name", (req, res) => {
   Recipe.findOneAndRemove({name: req.params.name}).then(function(){
-    res.redirect("/recipes")
+    res.json({success: true})
+  })
+})
+
+app.put("/api/recipes/:name", function(req, res){
+  Recipe.findOneAndUpdate({name: req.params.name},
+  req.body, {new: true}).then(function(recipe){
+    res.json(recipe)
   })
 })
 

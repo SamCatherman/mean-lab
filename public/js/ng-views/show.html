@@ -1,0 +1,11 @@
+<div data-ng-if="!vm.recipe.name">
+  <h2>Recipe Not Found</h2>
+</div>
+
+<div data-ng-if="vm.recipe.name">
+  <h2>{{vm.recipe.name}}</h2>
+</div>
+
+<!-- <form method="post" action="/recipes/{{recipe.name}}/delete">
+  <button type="submit">Composter</button>
+</form> -->

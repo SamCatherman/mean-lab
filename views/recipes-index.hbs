@@ -3,19 +3,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
 <script src="/assets/js/app.js"></script>
 
-<div data-ng-app="candidates">
+<div data-ng-app="recipeFinder">
   <main data-ui-view></main>
 </div>
-
-
-<h2>{{recipes.length}} Recipes</h2>
-{{#each recipes as |recipe index|}}
-<h3>
-  <a href="/recipes/{{recipe.name}}">{{recipe.name}}</a>
-</h3>
-{{/each}}
-
-<form action="/recipes" method="post">
-  <input type="text" name="recipe[name]" placeholder="Recipe Name"/>
-  <button type="submit">Cook It!</button>
-</form>
