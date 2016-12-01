@@ -1,4 +1,5 @@
 var mongoose = require("mongoose")
+var connection = mongoose.connect('mongodb://localhost/recipefinder')
 
 var Schema = mongoose.Schema,
     ObjectId = Schema.ObjectId

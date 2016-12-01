@@ -1,5 +1,7 @@
 var mongoose = require ('mongoose')
-var connection = mongoose.connect('mongodb://localhost/recipefinder')
+// mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://10.7.0.3:27107/data/db');
+
 
 var RecipeModel = require("../models/recipe")
 var IngredientModel = require("../models/ingredient")
@@ -28,7 +30,7 @@ for(var i = 0; i < recipes.length; i++){
   recipes[i].save(function(err){
     if (err){
       console.log(err)
-    }else {
+    } else {
       console.log("recipe was saved")
     }
   })
