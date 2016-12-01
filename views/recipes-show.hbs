@@ -1,0 +1,13 @@
+{{#unless recipe}}
+<h2>That recipe couldn't be found!</h2>
+{{else}}
+<h2>{{recipe.name}}</h2>
+  <p>
+    {{recipe.ingredients}}
+</a>
+  </p>
+{{/unless}}
+
+<form method="post" action="/recipes/{{recipe.name}}/delete">
+  <button type="submit">Composter</button>
+</form>

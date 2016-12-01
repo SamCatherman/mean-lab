@@ -16,7 +16,7 @@ app.engine(".hbs", hbs({
 }));
 
 app.use("/assets", express.static("public"));
-app.use(parser.json({extended: true}))
+app.use(parser.urlencoded({extended: true}))
 
 app.get("/", (req,res) => {
   res.send("hello, this will be a mean lab soon")
@@ -29,14 +29,25 @@ app.get("/recipes", function(req,res){
       recipes: recipes
     })
   })
-
 })
 
 app.get("/recipes/:name", (req, res) => {
-  Recipe.findOne({name: req.params.name}).then((candidate) => {
+  Recipe.findOne({name: req.params.name}).then((recipe) => {
     res.render("recipes-show", {
       recipe: recipe
     })
+  })
+})
+
+app.post("/recipes", (req, res) => {
+  Recipe.create(req.body.recipe).then(function(recipe){
+    res.redirect("/recipes/" + recipe.name)
+  })
+})
+
+app.post("/recipes/:name/delete", (req, res) => {
+  Recipe.findOneAndRemove({name: req.params.name}).then(function(){
+    res.redirect("/recipes")
   })
 })
 
