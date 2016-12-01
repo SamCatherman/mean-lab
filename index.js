@@ -38,7 +38,7 @@ app.get("/api/recipes", function(req, res){
 
 
 app.post("/api/recipes", (req, res) => {
-  Recipe.create(req.body.recipe).then(function(recipe){
+  Recipe.create(req.body).then(function(recipe){
     res.json(recipe)
   })
 })
