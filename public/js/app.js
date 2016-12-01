@@ -17,6 +17,7 @@ angular
     indexControllerFunction
   ])
   .controller("showController", [
+    "$state",
     "Recipe",
     "$stateParams",
     showControllerFunction
@@ -28,8 +29,16 @@ function RecipeFactory($resource){
   })
 }
 
-function showControllerFunction(Recipe, $stateParams){
+function showControllerFunction($state, Recipe, $stateParams){
   this.recipe = Recipe.get({name: $stateParams.name})
+  this.update = function(){
+    this.candidate.$update({name: $stateParams.name})
+  }
+  this.destroy = function(){
+    this.recipe.$delete({name: $stateParams.name}).then(function(){
+      $state.go("index")
+    })
+  }
 }
 
 function indexControllerFunction(Recipe, $state){
